@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("../Images/bg_mountain.jpg");
+  background-size: cover;
+  font-family: "Lato", sans-serif;
+  /* font-family: "Inconsolata", monospace; */
+  font-weight: 400;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  color: wheat;
+}
+
+.navbar {
+  height: 40px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float: right;
+  margin-top: 20px;
+}
+li {
+  display: inline;
+  margin-top: 30px;
+}
+li a {
+  margin-left: 30px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: wheat;
+}
+
+.header {
+  position: relative;
+  height: 95vh;
+}
+
+.header--text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* text-align: center; */
+}
+
+.header--primary {
+  display: block;
+  text-transform: uppercase;
+  font-size: 5rem;
+  color: honeydew;
+}
+
+.header--secondary {
+  display: block;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  text-align: center;
+  color: lemonchiffon;
+  margin-bottom: 10rem;
+}
+
+.header--btn button {
+  margin-left: 30%;
+  padding: 2rem 5rem;
+  border-radius: 1rem;
+  border: none;
+  text-align: center;
+  color: black;
+  background-color: whitesmoke;
+  font-size: 2rem;
+  box-shadow: 0.3rem 0.3rem 0.8rem black;
+}
