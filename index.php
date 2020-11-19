@@ -1,12 +1,12 @@
 <?php
 
-    $conn = mysqli_connect('localhost','admin','admin1234','Tourism');
+    $conn = mysqli_connect('localhost','admin','admin1234','Tour');
 
     if(!$conn){
         echo "Connection Error".mysqli_connect_error();
     }
 
-    $sql = "SELECT Name FROM users";
+    $sql = "SELECT FullName FROM tblusers";
 
     $result = mysqli_query($conn, $sql);
 

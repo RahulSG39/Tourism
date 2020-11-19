@@ -1,18 +1,35 @@
 <?php
+    session_start();
     $email=$name=$uname=$password='';
-    $errors = array('email' => '', 'name' => '', 'uname' => '');
+    $errors = array('email' => '', 'name' => '', 'password' => '', 'confirm_password' => '');
     if(isset($_POST['reg'])){
-        $password = $_POST['password'];
 
-        // check email
-        if(empty($_POST['email'])){
-            $errors['email'] = 'An email is required';
-        } else{
-            $email = $_POST['email'];
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $errors['email'] = 'Email must be a valid email address';
+        $conn = mysqli_connect('localhost','admin','admin1234','Tour');
+
+        if(!$conn){
+            echo "Connection Error".mysqli_connect_error();
+        }
+    
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+
+        $duplicate=mysqli_query($conn,"SELECT * FROM tblusers WHERE EmailId='$email'");
+        if (mysqli_num_rows($duplicate)>0)
+        {
+            $errors['email'] = "Email id already exists.";
+        }
+        else{
+                if(empty($_POST['email'])){
+                $errors['email'] = 'An email is required';
+            } else{
+                if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    $errors['email'] = 'Email must be a valid email address';
+                }
             }
         }
+
+        // check email
+        
 
         // check name
         if(empty($_POST['name'])){
@@ -20,17 +37,28 @@
         } else{
             $name = $_POST['name'];
             if(!preg_match('/^[a-zA-Z\s]+$/', $name)){
-                $errors['name'] = 'Title must be letters and spaces only';
+                $errors['name'] = 'Name must be letters and spaces only';
             }
         }
 
-        //check uname
-        if(empty($_POST['uname'])){
-            $errors['uname'] = 'A title is required';
+ 
+
+
+        if(empty($_POST['password'] || $_POST['password'] )){
+            $errors['password'] = 'A password is required';
         } else{
-            $uname = $_POST['uname'];
-            if(!preg_match('/^[a-zA-Z\s]+$/', $uname)){
-                $errors['uname'] = 'Title must be letters and spaces only';
+            $password = $_POST['password'];
+            if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,12}$/', $password)) {
+                $errors['password'] = 'the password does not meet the requirements!';
+            }
+        }
+
+        if(empty($_POST['confirm_password'])){
+            $errors['confirm_password'] = 'A password is required';
+        } else{
+            $confirm_password = $_POST['confirm_password'];
+            if($confirm_password != $password){
+                $errors['confirm_password'] = 'Passwords do not match';
             }
         }
 
@@ -41,13 +69,13 @@
             //echo 'form is valid';
             // header('Location: index.php');
 
-            $conn = mysqli_connect('localhost','admin','admin1234','Tourism');
+            $conn = mysqli_connect('localhost','admin','admin1234','Tour');
 
             if(!$conn){
                 echo "Connection Error".mysqli_connect_error();
             }
 
-            $sql = "INSERT INTO users(Name, Username, Email, Password) VALUES('$name','$uname','$email','$password')";
+            $sql = "INSERT INTO tblusers(FullName, EmailId, Password) VALUES('$name','$email','$password')";
 
             if (mysqli_query($conn, $sql)) {
                 echo "New record created successfully";
@@ -59,6 +87,31 @@
         }
         
     }
+
+    if(isset($_POST['sign_in'])){
+
+        $conn = mysqli_connect('localhost','admin','admin1234','Tour');
+
+        if(!$conn){
+            echo "Connection Error".mysqli_connect_error();
+        }
+        $login_email = $_POST['login_email'];
+        $login_password = $_POST['login_password'];
+
+        $sql1 = "SELECT * FROM tblusers WHERE EmailId = '$login_email' AND Password = '$login_password'";
+
+        if (mysqli_query($conn, $sql1)) {
+            $_SESSION["email"] = $_POST["login_email"];
+            header('Location: packages.php');
+
+        } else {
+            echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+        }
+
+    }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -69,17 +122,17 @@
       <form method="POST">
         <div class="reg">
           <h1>Sign Up</h1>
-          <input type="text" placeholder="Name" name="name"/><?php echo $errors['uname']?>
-          <input type="text" placeholder="Username" name="uname" />
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password" />
-          <input type="password" placeholder="Confirm Password" />
+          <input type="text" placeholder="Name" name="name"/><?php echo $errors['name']?>
+          <!-- <input type="text" placeholder="Username" name="uname" /> -->
+          <input type="email" placeholder="Email" name="email" /><?php echo $errors['email']?>
+          <input type="password" placeholder="Password" name="password" /><?php echo $errors['password']?>
+          <input type="password" placeholder="Confirm Password" name="confirm_password"/><?php echo $errors['confirm_password']?>
           <input type="submit" value="Sign Up" name="reg"/>
         </div>
         <div class="login">
           <h1>Log in</h1>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" name="login_email" />
+          <input type="password" placeholder="Password" name="login_password"/>
           <input type="submit" name="sign_in" value="Sign in"/>
         </div>
       </form>

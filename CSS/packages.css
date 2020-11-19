@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* height: 100%;
+  width: 100%; */
+  background-image: url("../Images/bg_mountain.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body {
+  /* width: 100%;
+  height: 100%; */
+
+  font-family: "Lato", sans-serif;
+  /* background-position: center; */
+}
+
+.package {
+  height: 100%;
+  width: 90%;
+  margin: 80px;
+  background-color: burlywood;
+  display: flex;
+  justify-content: space-around;
+  color: black;
+}
+
+.package h1 {
+  padding: 80px;
+  font-size: 5rem;
+}
+
+.package a {
+  text-decoration: none;
+  color: black;
+  font-size: 3rem;
+  margin: auto;
+}

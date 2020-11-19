@@ -1,0 +1,34 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("/Images/bg_mountain.jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#myCarousel {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.price {
+  background-color: lightgrey;
+  width: 100%;
+  height: 80px;
+  padding-top: 1px;
+  margin: 20px;
+}
+.tcenter {
+  margin-left: auto;
+  margin-right: auto;
+}

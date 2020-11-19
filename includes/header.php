@@ -14,7 +14,7 @@
     <div class="navbar">
       <ul class="navbar--nav">
         <li><a class="nav--items" href="index.php">Home</a></li>
-        <li><a class="nav--items" href="#">Packages</a></li>
+        <li><a class="nav--items" href="packages.php">Packages</a></li>
         <li><a class="nav--items" href="#">Terms And Conditions</a></li>
         <li><a class="nav--items" href="#">Contact Us</a></li>
       </ul>
